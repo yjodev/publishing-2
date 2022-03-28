@@ -1,70 +1,46 @@
-# starter
+# Getting Started with Create React App
 
-Full stack web application
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Starter Setup
-```bash
-# Starter 클론
-$ git clone git@github.com:entropyparadox/starter.git <project name>
+## Available Scripts
 
-# setup 스크립트 실행
-$ bash ./setup.sh
+In the project directory, you can run:
 
-Project name: # 띄어쓰기 X, 영어 소문자, 하이픈, 언더스코어만 허용
-Github mono repo url (press ENTER to skip): # 개별 리포인 경우 엔터로 건너뜀
+### `npm start`
 
-# mono repo 주소를 입력하지 않은 경우
-Github api repo url (press ENTER to skip api): # api repo 가 있으면 입력 / 없으면 skip
-Github web repo url (press ENTER to skip web): # web repo 가 있으면 입력 / 없으면 skip
-Github app repo url (press ENTER to skip app): # app repo 가 있으면 입력 / 없으면 skip
-```
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `setup.sh` 가 하는 일
-1. starter 최신화 & starter git history 삭제
-2. `volta` 없으면 설치
-3. starter 라는 문자열을 프로젝트 이름으로 찾아바꾸기 
-4. `.env.example` 로 부터 `.env` 생성
-5. 설정한 각 repo 주소로 git init & push
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-## Guide
+### `npm test`
 
-[Martian 개발자 문서](https://www.notion.so/Martian-f6b232112311429090b0942b2a52a6bf)
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Requirements
+### `npm run build`
 
-[Volta](https://volta.sh/), 각 폴더 package.json 의 volta 파트에서 node 및 npm 버전 확인 가능
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-- Install volta
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-```
-curl https://get.volta.sh | bash
-```
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-volta 설치 후 터미널 재시작하면 자동으로 node 및 npm 버전 설정 됨.
+### `npm run eject`
 
-## Development
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-아래 명령어 실행 후 바로 개발 환경 시작 가능
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-```
-npm i
-npm start
-```
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-## References
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-### back-end
+## Learn More
 
-- [NestJS](https://docs.nestjs.com)
-- [TypeORM](https://typeorm.io)
-- [PostgreSQL with Docker](https://www.notion.so/Docker-PostgreSQL-3a0005448c35425d977d6a9b0495e51d)
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-### front-end
-
-- [React](https://reactjs.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [React Router](https://reactrouter.com)
-- [React Query](https://react-query.tanstack.com)
-- [react-hook-form](https://react-hook-form.com)
-- [react-ridge-state](https://github.com/web-ridge/react-ridge-state)
-- [Moment.js](https://momentjs.com)
+To learn React, check out the [React documentation](https://reactjs.org/).
