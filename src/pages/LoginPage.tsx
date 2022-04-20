@@ -12,15 +12,25 @@ export const LoginPage = () => {
   const users = data.users;
 
   const checkUser = () => {
+    if (email === '' || password === '') {
+      alert('아이디와 비밀번호를 입력해주세요');
+      return;
+    } 
+
+
     for(let i=0 ; i<users.length ; i++) {
       if (email === users[i].email && password === users[i].password) {
         alert("로그인 성공");
         replace('/'); // 현재 상위 페이지를 대체
         return;
+      } else if ( email === users[i].email && password !== users[i].password ){
+          alert('비밀번호가 틀립니다');
+          return;
+        }
       }
     }
     alert("로그인 실패");
-  }
+  
 
   return <div className="m-4 space-y-20">
     <div className=' text-3xl font-bold'>로그인</div>

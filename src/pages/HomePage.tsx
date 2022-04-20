@@ -1,6 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { CategoryButton } from '../components/CategoryButton';
+import { MovieCard } from '../components/MovieCard';
+const API_KEY = 'd7cfdd1572e06bb0e7952f1b466a0ee5';
+
+export type Movie = {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string;
+  vote_average: number;
+ };
+ 
 
 export const HomePage = () => {
+  const [isLoading,setIsLoading] = useState(true);
+  const [movies,setMovies] = useState<Movie[]>([]);
+
+
+  const getData = async () => {
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`
+    const response = await fetch(url);
+    console.log(response);
+    if (response.status == 200 ) {
+      // 데이터 잘 왔을 때 실행할 내용
+      const data = await response.json();
+      console.log(data);
+
+      setMovies(data.results);
+    } else {
+      throw new Error("데이터를 받아오지 못했습니다.");
+    }
+    setIsLoading(false);
+  }
+
+useEffect(() => {
+  getData();
+}, [])
+
     return (
     <div className='m-4 space-y-10'>
       <div className="space-y-4">
@@ -16,40 +52,13 @@ export const HomePage = () => {
         <div className="text-2xl font-bold">Category</div>
 
         <div className="flex space-x-6">
-          <div>
-            <img 
-            src="https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8amFwYW5lc2UlMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60" 
-            alt=""
-            className="w-20 h-20 object-cover rounded-full"
-            />
-            <div className="text-center">일식</div>
-          </div>
- 
-          <div>
-            <img 
-            src="https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2hpbmVzZSUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60" 
-            alt=""
-            className="w-20 h-20 object-cover rounded-full"
-            />
-            <div className="text-center">중식</div>
-          </div>
 
-          <div>
-            <img 
-            src="https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8amFwYW5lc2UlMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60" 
-            alt=""
-            className="w-20 h-20 object-cover rounded-full"
-            />
-            <div className="text-center">한식</div>
-          </div>
-          <div>
-            <img 
-            src="https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2hpbmVzZSUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60" 
-            alt=""
-            className="w-20 h-20 object-cover rounded-full"
-            />
-            <div className="text-center">양식</div>
-          </div>
+          <CategoryButton  label={'일식'}/>
+          <CategoryButton  label={'중식'}/>
+          <CategoryButton  label={'한식'}/>
+          <CategoryButton  label={'양식'}/>
+
+
         </div>
 
       </div>
@@ -81,21 +90,12 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
+     
 
       <div className="space-y-4">
         <div className="text-2xl font-bold">Today's Special</div>
-
-        <div className="flex space-x-4">
-          <img 
-            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=700&q=60" 
-            alt="" 
-            className="w-20 h-30 object-cover rounded-md"/>
-          <div>
-            <div className="text-lg font-semibold">식당 이름</div>
-            <div className="text-gray-700">말이 필요 없는 서울 최고의 식당 중 하나</div>
-            <div className="text-gray-500">서울시 강남구 청담동</div> 
-          </div>
-        </div>
+        {!isLoading && movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+      
 
         <div className="border-b-2"></div>
 
