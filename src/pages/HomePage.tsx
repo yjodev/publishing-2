@@ -3,6 +3,18 @@ import { CategoryButton } from '../components/CategoryButton';
 import { MovieCard } from '../components/MovieCard';
 const API_KEY = 'd7cfdd1572e06bb0e7952f1b466a0ee5';
 
+export type Category = {
+  id: number;
+  label: string;
+  url: string;
+ };
+ 
+ const CATEGORY_LIST = [
+  { id: 0, label: '인기있는영화', url: '/popular' },
+  { id: 1, label: '현재 상영작', url: '/now_playing' },
+  { id: 2, label: '별점 높은 영화', url: '/top_rated' }
+ ];
+
 export type Movie = {
   id: number;
   title: string;
@@ -15,10 +27,15 @@ export type Movie = {
 export const HomePage = () => {
   const [isLoading,setIsLoading] = useState(true);
   const [movies,setMovies] = useState<Movie[]>([]);
+  const [categoryIndex, setCategoryIndex] = useState(0);
+
+  const setCategory = (index:number) => {
+    setCategoryIndex(index);
+  }
 
 
-  const getData = async () => {
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`
+  const getData = async (categoryIndex:number) => {
+    const url = `https://api.themoviedb.org/3/movie${CATEGORY_LIST[categoryIndex].url}?api_key=${API_KEY}&language=ko-KR&page=1`
     const response = await fetch(url);
     console.log(response);
     if (response.status == 200 ) {
@@ -34,15 +51,15 @@ export const HomePage = () => {
   }
 
 useEffect(() => {
-  getData();
-}, [])
+  getData(categoryIndex);
+}, [categoryIndex])
 
     return (
     <div className='m-4 space-y-10'>
       <div className="space-y-4">
         <div className="text-2xl font-bold ">New</div>
         <img 
-          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+          src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
           alt="" 
           className="w-full h-72 object-cover rounded-2xl"
         />
@@ -52,17 +69,14 @@ useEffect(() => {
         <div className="text-2xl font-bold">Category</div>
 
         <div className="flex space-x-6">
-
-          <CategoryButton  label={'일식'}/>
-          <CategoryButton  label={'중식'}/>
-          <CategoryButton  label={'한식'}/>
-          <CategoryButton  label={'양식'}/>
+          {CATEGORY_LIST.map((data) => (<CategoryButton category={data} onClick={setCategory}/>))}
 
 
         </div>
 
       </div>
 
+{/*
       <div>
         <div className="text-2xl font-bold mb-4">List</div>
         
@@ -90,6 +104,7 @@ useEffect(() => {
           </div>
         </div>
       </div>
+    */}
      
 
       <div className="space-y-4">
